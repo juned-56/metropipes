@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metro Pipe Center</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.jpg" alt="Company Logo">
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <ul class="menu">
+      <li><a href="aboutus.html">About</a></li>
+      <li class="dropdown">
+        <a href="#products">Products</a>
+        <ul class="dropdown-menu">
+          <li><a href="pipes.html">Pipes</a></li>
+          <li><a href="buttweldfittings.html">Butt Weld Fittings</a></li>
+          <li><a href="flanges.html">Flanges</a></li>
+          <li><a href="forgedfittings.html">Forged Fittings</a></li>
+        </ul>
+      </li>
+      <li><a href="contactus.html">Contacts</a></li>
+      <li><a href="inquiry.html">Enquiry</a></li>
+    </ul>
+  </nav>
+  
+  <div class="slideshow-container">
+
+    <div class="mySlides fade">
+      <img src="b1.jpg" style="width:100%; height:auto; max-height:80vh;">
+      <div class="text">Metro Pipes</div>
+    </div>
+    
+    <div class="mySlides fade">
+      <img src="b2.jpg" style="width:100%; height:auto; max-height:80vh;">
+      <div class="text">Metro Pipes</div>
+    </div>
+    
+    <div class="mySlides fade">
+      <img src="b3.jpg" style="width:100%; height:auto; max-height:80vh;">
+      <div class="text">Metro Pipes</div>
+    </div>
+    
+    </div>
+    <br>
+    
+    <div style="text-align:center">
+      <span class="dot"></span> 
+      <span class="dot"></span> 
+      <span class="dot"></span> 
+    </div>
+
+<section class="cards">
+  <div class="card" id="pipes">
+    <div class="card-image">
+      <img src="pipes.jpg" alt="Pipes">
+    </div>
+    <h2>Pipes</h2>
+    <p>High-quality pipes for various industrial applications.</p>
+    <button onclick="window.location.href='pipes.html'">Read More</button>
+  </div>
+  <div class="card" id="butt-weld-fittings">
+    <div class="card-image">
+      <img src="fitt.jpg" alt="Butt Weld Fittings">
+    </div>
+    <h2>Butt Weld Fittings</h2>
+    <p>Durable butt weld fittings for seamless connections.</p>
+    <button onclick="window.location.href='buttweldfittings.html'">Read More</button>
+  </div>
+  <div class="card" id="flanges">
+    <div class="card-image">
+      <img src="Flanges.jpg" alt="Flanges">
+    </div>
+    <h2>Flanges</h2>
+    <p>Reliable flanges for secure pipe connections.</p>
+    <button onclick="window.location.href='flanges.html'">Read More</button>
+  </div>
+  <div class="card" id="forged-fittings">
+    <div class="card-image">
+      <img src="Forged Fittings.jpg" alt="Forged Fittings">
+    </div>
+    <h2>Forged Fittings</h2>
+    <p>Strong forged fittings for high-pressure applications.</p>
+    <button onclick="window.location.href='forged-fittings.html'">Read More</button>
+  </div>
+</section>
+  <section class="company-description">
+    <h2>About Metro Pipe Center</h2>
+    <p>
+      Metro Pipe Center is a leading provider of high-quality piping solutions. We specialize in pipes, butt weld fittings, flanges, and forged fittings. Our commitment to quality and timely delivery has made us a trusted partner for industries worldwide.
+    </p>
+</section>
+
+  <footer class="footer">
+    <div class="footer-column">
+      <h3>Metro Pipes</h3>
+      <p>We are very conscious about the quality of material, workmanship, and service we provide to all our clients. To ensure the quality and timely delivery of products, we formed an associate company to cater to all our needs on time.</p>
+    </div>
+    <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="aboutus.html">→About Us</a></li>
+        <li><a href="products.html">→Products</a></li>
+        <li><a href="contactus.html">→Contacts</a></li>
+        <li><a href="inquiry.html">→Enquiry</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3>Our Products</h3>
+      <ul>
+        <li><a href="pipes.html">→Pipes</a></li>
+        <li><a href="buttweldfittings.html">→Butt Weld Fittings</a></li>
+        <li><a href="flanges.html">→Flanges</a></li>
+        <li><a href="forgedfittings.html">→Forged Fittings</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3>Office Address</h3>
+      <p>
+        Gala No. 02 C-r Aziz Compound, Loyalka Road
+        Sakinaka, Mumbai<br>Suburban, Maharastra-400072<br>
+        +91-8451855979<br>
+        +91-7408164630<br>
+        metropipes1@gmail.com<br>
+        www.metropipe.com
+      </p>
+    </div>
+  </footer>
+  <script>
+    let slideIndex = 0;
+    showSlides();
+    
+    function showSlides() {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}    
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";  
+      dots[slideIndex-1].className += " active";
+      setTimeout(showSlides, 3000); // Change image every 2 seconds
+    }
+    function toggleMenu() {
+    const menu = document.querySelector('.menu');
+    menu.classList.toggle('active');
+}
+    </script>
+</body>
+</html>
