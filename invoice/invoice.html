@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .invoice-container {
+      width: 80%;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #000;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sgtin {
+      font-weight: bold;
+    }
+
+    .invoice-form {
+      margin-bottom: 20px;
+    }
+
+    .invoice-form label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    .invoice-form input,
+    .invoice-form select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .invoice-form button {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .invoice-form button:hover {
+      background-color: #218838;
+    }
+
+    .invoice-output {
+      margin-top: 20px;
+    }
+
+    #invoiceDetails {
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table th,
+    table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #f2f2f2;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .actions button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .actions button.edit {
+      background-color: #ffc107;
+      color: #000;
+    }
+
+    .actions button.delete {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    .download-pdf {
+      margin-top: 20px;
+      text-align: right;
+    }
+
+    .download-pdf button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .download-pdf button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.16/jspdf.plugin.autotable.min.js"></script>
+  
+</head>
+<body>
+  <div class="invoice-container">
+   
+    <div class="header">
+      <div class="contact-info">
+        <span>Contact: +91-8451855979</span>
+        <span>Email: metropipes1@gmail.com</span>
+      </div>
+      <div class="sgtin">
+        <span>SGTIN: 27ENUPK5009L1ZC</span>
+      </div>
+    </div>
+
+    
+    <div class="invoice-form">
+      <h2>Add Item to Invoice</h2>
+      <form id="invoiceForm">
+        <label for="productName">Product Name:</label>
+        <input type="text" id="productName" required>
+
+        <label for="productCategory">Product Category:</label>
+        <input type="text" id="productCategory" required>
+
+        <label for="hsnCode">HSN Code:</label>
+        <select id="hsnCode" required>
+          <option value="HSN005">HSN005</option>
+          <option value="HSN006">HSN006</option>
+          <option value="HSN007">HSN007</option>
+          <option value="custom">Add New HSN Code</option>
+        </select>
+        <input type="text" id="newHsnCode" placeholder="Enter New HSN Code" style="display: none;">
+
+        <label for="weightDimension">Weight/Dimension:</label>
+        <select id="weightDimension" required>
+          <option value="kg/m3">kg/m3</option>
+          <option value="m3">m3</option>
+          <option value="kg/feet">kg/feet</option>
+          <option value="feet/kg">feet/kg</option>
+          <option value="kg/m">kg/m</option>
+        </select>
+
+        <label for="pricePerUnit">Price Per Unit:</label>
+        <input type="number" id="pricePerUnit" required>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" required>
+
+        <label for="cgst">CGST (%):</label>
+        <select id="cgst" required>
+          <option value="5">5%</option>
+          <option value="6">6%</option>
+          <option value="7">7%</option>
+          <option value="8">8%</option>
+          <option value="9">9%</option>
+          <option value="10">10%</option>
+          <option value="11">11%</option>
+          <option value="12">12%</option>
+          <option value="13">13%</option>
+          <option value="14">14%</option>
+          <option value="15">15%</option>
+          <option value="16">16%</option>
+          <option value="17">17%</option>
+          <option value="18">18%</option>
+        </select>
+
+        <label for="sgst">SGST (%):</label>
+        <select id="sgst" required>
+          <option value="5">5%</option>
+          <option value="6">6%</option>
+          <option value="7">7%</option>
+          <option value="8">8%</option>
+          <option value="9">9%</option>
+          <option value="10">10%</option>
+          <option value="11">11%</option>
+          <option value="12">12%</option>
+          <option value="13">13%</option>
+          <option value="14">14%</option>
+          <option value="15">15%</option>
+          <option value="16">16%</option>
+          <option value="17">17%</option>
+          <option value="18">18%</option>
+          </select>
+
+        <label for="loadingCharges">Loading & Forwarding Charges:</label>
+        <input type="number" id="loadingCharges" required>
+
+        <button type="button" onclick="addItem()">Add Item</button>
+      </form>
+    </div>
+
+  
+    <div class="invoice-output" id="invoiceOutput">
+      <h2>Generated Invoice</h2>
+      <div id="invoiceDetails">
+        <table>
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Category</th>
+              <th>HSN Code</th>
+              <th>Weight/Dimension</th>
+              <th>Price Per Unit</th>
+              <th>Quantity</th>
+              <th>CGST (%)</th>
+              <th>SGST (%)</th>
+              <th>Loading Charges</th>
+              <th>Total</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="invoiceTableBody">
+            
+          </tbody>
+        </table>
+        <h3 id="grandTotal">Grand Total: ₹0.00</h3>
+      </div>
+    </div>
+
+   
+    <div class="download-pdf">
+      <button onclick="downloadPDF()">Download PDF</button>
+    </div>
+  </div>
+
+  <script>
+    let items = [];
+    let editIndex = null;
+
+    
+    document.getElementById('hsnCode').addEventListener('change', function () {
+      const newHsnCodeInput = document.getElementById('newHsnCode');
+      if (this.value === 'custom') {
+        newHsnCodeInput.style.display = 'block';
+      } else {
+        newHsnCodeInput.style.display = 'none';
+      }
+    });
+
+ 
+    function addItem() {
+      const productName = document.getElementById('productName').value;
+      const productCategory = document.getElementById('productCategory').value;
+      const hsnCode = document.getElementById('hsnCode').value === 'custom' ? 
+        document.getElementById('newHsnCode').value : document.getElementById('hsnCode').value;
+      const weightDimension = document.getElementById('weightDimension').value;
+      const pricePerUnit = parseFloat(document.getElementById('pricePerUnit').value);
+      const quantity = parseFloat(document.getElementById('quantity').value);
+      const cgst = parseFloat(document.getElementById('cgst').value);
+      const sgst = parseFloat(document.getElementById('sgst').value);
+      const loadingCharges = parseFloat(document.getElementById('loadingCharges').value);
+
+      if (editIndex !== null) {
+       
+        items[editIndex] = {
+          productName,
+          productCategory,
+          hsnCode,
+          weightDimension,
+          pricePerUnit,
+          quantity,
+          cgst,
+          sgst,
+          loadingCharges
+        };
+        editIndex = null;
+      } else {
+        
+        items.push({
+          productName,
+          productCategory,
+          hsnCode,
+          weightDimension,
+          pricePerUnit,
+          quantity,
+          cgst,
+          sgst,
+          loadingCharges
+        });
+      }
+
+      renderTable();
+      resetForm();
+    }
+
+  
+    function renderTable() {
+      let tableBody = '';
+      let grandTotal = 0;
+
+      items.forEach((item, index) => {
+        const total = calculateTotal(item);
+        grandTotal += total;
+
+        tableBody += `
+          <tr>
+            <td>${item.productName}</td>
+            <td>${item.productCategory}</td>
+            <td>${item.hsnCode}</td>
+            <td>${item.weightDimension}</td>
+            <td>₹${item.pricePerUnit.toFixed(2)}</td>
+            <td>${item.quantity}</td>
+            <td>${item.cgst}%</td>
+            <td>${item.sgst}%</td>
+            <td>₹${item.loadingCharges.toFixed(2)}</td>
+            <td>₹${total.toFixed(2)}</td>
+            <td>
+              <div class="actions">
+                <button class="edit" onclick="editItem(${index})">Edit</button>
+                <button class="delete" onclick="deleteItem(${index})">Delete</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+
+      document.getElementById('invoiceTableBody').innerHTML = tableBody;
+      document.getElementById('grandTotal').innerText = `Grand Total: ₹${grandTotal.toFixed(2)}`;
+    }
+
+ 
+    function calculateTotal(item) {
+      const price = item.pricePerUnit * item.quantity;
+      const cgstAmount = (price * item.cgst) / 100;
+      const sgstAmount = (price * item.sgst) / 100;
+      return price + cgstAmount + sgstAmount + item.loadingCharges;
+    }
+
+
+    function editItem(index) {
+      const item = items[index];
+      document.getElementById('productName').value = item.productName;
+      document.getElementById('productCategory').value = item.productCategory;
+      document.getElementById('hsnCode').value = item.hsnCode;
+      document.getElementById('weightDimension').value = item.weightDimension;
+      document.getElementById('pricePerUnit').value = item.pricePerUnit;
+      document.getElementById('quantity').value = item.quantity;
+      document.getElementById('cgst').value = item.cgst;
+      document.getElementById('sgst').value = item.sgst;
+      document.getElementById('loadingCharges').value = item.loadingCharges;
+
+      editIndex = index;
+    }
+
+   
+    function deleteItem(index) {
+      items.splice(index, 1);
+      renderTable();
+    }
+
+    
+    function resetForm() {
+      document.getElementById('invoiceForm').reset();
+      document.getElementById('newHsnCode').style.display = 'none';
+    }
+
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      // doc.text('Invoice', 14, 10);
+
+      doc.setFontSize(7);
+      // doc.text('Invoice', 100, 10);
+      doc.text('Contact: +91-8451855979', 14, 5);
+      doc.text('Email: metropipes1@gmail.com', 85, 5);
+      doc.text('SGTIN: 27ENUPK5009L1ZC', 165, 5);
+      doc.text('Invoice', 100, 10);
+      let lines = [
+  "Metro Pipe is a leading provider of high-quality piping solutions.",
+  "We specialize in pipes, butt weld fittings, flanges, and forged fittings.",
+  "Our commitment to quality and timely delivery has made us",
+  "a trusted partner for industries worldwide.",
+  "",
+];
+
+let yPosition = 15;
+lines.forEach(line => {
+  doc.text(line, 14, yPosition);
+  yPosition += 5;
+});
+
+      // Adding "Invoice" title below the contact details
+      doc.setFontSize(11);
+      
+
+      const tableColumn = ['Product Name', 'Category', 'HSN Code', 'Weight/Dimension', 'Price Per Unit', 'Quantity', 'CGST', 'SGST', 'Loading Charges', 'Total'];
+      const tableRows = items.map(item => [
+        item.productName,
+        item.productCategory,
+        item.hsnCode,
+        item.weightDimension,
+        item.pricePerUnit.toFixed(2),
+        item.quantity,
+        item.cgst + '%',
+        item.sgst + '%',
+        item.loadingCharges.toFixed(2),
+        calculateTotal(item).toFixed(2)
+      ]);
+
+      doc.autoTable({
+        head: [tableColumn],
+        body: tableRows,
+        startY: 40,
+      });
+
+      doc.text(`Grand Total: ₹${calculateGrandTotal().toFixed(2)}`, 14, doc.lastAutoTable.finalY + 10);
+      doc.save('invoice.pdf');
+    }
+
+    
+    function calculateGrandTotal() {
+      return items.reduce((total, item) => total + calculateTotal(item), 0);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inquiry Page</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.jpg" alt="Company Logo">
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <ul class="menu">
+      <li><a href="aboutus.html">About</a></li>
+      <li class="dropdown">
+        <a href="#products">Products</a>
+        <ul class="dropdown-menu">
+          <li><a href="pipes.html">Pipes</a></li>
+          <li><a href="buttweldfittings.html">Butt Weld Fittings</a></li>
+          <li><a href="flanges.html">Flanges</a></li>
+          <li><a href="forgedfittings.html">Forged Fittings</a></li>
+        </ul>
+      </li>
+      <li><a href="contactus.html">Contacts</a></li>
+      <li><a href="inquiry.html">Enquiry</a></li>
+      <li><a href="qnp.html">Quality & Policy</a></li>
+    </ul>
+  </nav>
+
+  <!-- Inquiry Section -->
+  <a href="index.html">←</a>
+  <section class="product-details">
+    <div class = "about-content" style="width: 50%;">
+  <h2>Inquiry</h2></div>
+  <section class="inquiry-section">
+    <!-- Form Card -->
+    <div class="card form-card">
+      <div class = "about-content" style="width: 50%;">
+      <h2>Send Us an Inquiry</h2></div>
+      <form id="inquiryForm">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input type="text" id="address" name="address" required>
+        </div>
+        <div class="form-group">
+          <label for="contact">Contact Number:</label>
+          <input type="tel" id="contact" name="contact" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <!-- Image Card -->
+    <div class="card image-card">
+      <img src="inqu.avif" alt="Inquiry Image">
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-column">
+      <h3>Metro Pipes</h3>
+      <p>We are very conscious about the quality of material, workmanship, and service we provide to all our clients. To ensure the quality and timely delivery of products, we formed an associate company to cater to all our needs on time.</p>
+    </div>
+    <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="aboutus.html">→About Us</a></li>
+        <li><a href="products.html">→Products</a></li>
+        <li><a href="contactus.html">→Contacts</a></li>
+        <li><a href="inquiry.html">→Enquiry</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3>Our Products</h3>
+      <ul>
+        <li><a href="pipes.html">→Pipes</a></li>
+        <li><a href="buttweldfittings.html">→Butt Weld Fittings</a></li>
+        <li><a href="flanges.html">→Flanges</a></li>
+        <li><a href="forgedfittings.html">→Forged Fittings</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3>Office Address</h3>
+      <p>
+        Gala No. 02 Cr Loyalka Road, Near 
+        Aziz Compound, Khairani Road,<br>
+        Sakinaka Mumbai 400072<br>
+        +91-8451855979<br>
+        +91-7408164630<br>
+        metropipes1@gmail.com<br>
+        www.metropipe.com
+      </p>
+    </div>
+  </footer>
+  <script>
+    function toggleMenu() {
+    const menu = document.querySelector('.menu');
+    menu.classList.toggle('active');
+}
+</script>
+<div class="social-icons">
+  <a href="https://wa.me/8451855979" target="_blank" class="social-icon" title="WhatsApp" style="background-color: green;">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  <a href="https://www.facebook.com/share/14L3VyvgZE/" target="_blank" class="social-icon" title="Facebook" style="background-color: blue;">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+  <a href="https://www.linkedin.com/in/salman-k-215b7887?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="social-icon" title="LinkedIn" style="background-color: blue;">
+    <i class="fab fa-linkedin-in"></i>
+  </a>
+</div>
+</body>
+</html>
